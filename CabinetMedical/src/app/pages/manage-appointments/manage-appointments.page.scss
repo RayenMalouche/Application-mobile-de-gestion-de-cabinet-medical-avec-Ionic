@@ -1,0 +1,222 @@
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+
+  p {
+    margin-top: 10px;
+    color: #666;
+  }
+}
+
+.appointments-container {
+  padding: 16px;
+}
+
+.header-card {
+  margin-bottom: 16px;
+
+  ion-card-title {
+    display: flex;
+    align-items: center;
+    color: #132d5e;
+
+    ion-icon {
+      margin-right: 8px;
+      font-size: 24px;
+    }
+  }
+
+  ion-card-subtitle {
+    color: #666;
+  }
+}
+
+.debug-info {
+  background-color: #f8f9fa;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  border: 1px dashed #ccc;
+  font-family: monospace;
+  font-size: 0.85rem;
+
+  p {
+    margin: 4px 0;
+  }
+}
+
+.empty-card {
+  text-align: center;
+  padding: 24px 0;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+
+  ion-icon {
+    font-size: 48px;
+    color: #ccc;
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: #777;
+  }
+}
+
+.appointment-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  --background: transparent;
+}
+
+.appointment-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px 0;
+
+  @media (min-width: 576px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.appointment-info {
+  flex: 1;
+  margin-bottom: 16px;
+
+  @media (min-width: 576px) {
+    margin-bottom: 0;
+  }
+
+  .appointment-reason {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 8px;
+  }
+
+  .appointment-date {
+    display: flex;
+    align-items: center;
+    margin: 4px 0;
+    color: #666;
+    font-size: 0.9rem;
+
+    ion-icon {
+      margin-right: 6px;
+      font-size: 16px;
+      color: #5c6bc0;
+    }
+  }
+}
+
+/* Improved user section */
+.appointment-user-container {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  padding: 8px 10px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 3px solid #5c6bc0;
+  max-width: 320px;
+  width: fit-content;
+}
+
+.user-avatar {
+  margin-right: 10px;
+
+  ion-icon {
+    font-size: 24px;
+    color: #5c6bc0;
+  }
+}
+
+.user-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  min-width: 0; /* Prevents flex items from overflowing */
+}
+
+.patient-name {
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+}
+
+.view-details-btn {
+  --padding-start: 4px;
+  --padding-end: 4px;
+  height: 28px;
+  font-size: 0.8rem;
+  --color: #5c6bc0;
+  margin-left: 4px;
+
+  ion-icon {
+    font-size: 14px;
+    margin-left: 2px;
+  }
+}
+
+.details-text {
+  @media (max-width: 400px) {
+    display: none;
+  }
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+.status-pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-accepted {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.appointment-actions {
+  display: flex;
+  gap: 8px;
+
+  ion-button {
+    --border-radius: 6px;
+    --padding-start: 12px;
+    --padding-end: 12px;
+    font-weight: 500;
+  }
+}

@@ -1,0 +1,13 @@
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let document of documents" >
+      <ion-label>{{ document.filename }}</ion-label>
+      <ion-button>
+        <ion-icon name="eye-outline" [style.color]="document.status === 'not viewed' ? 'red' : 'green'"></ion-icon>
+      </ion-button>
+      <ion-button (click)="deleteDocument(document.id)">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
