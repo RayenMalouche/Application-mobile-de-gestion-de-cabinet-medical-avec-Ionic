@@ -48,15 +48,15 @@ Cabinet Medical est une application mobile multiplateforme pour la gestion des r
 ### Backend
 1. Clonez le dépôt :
    ```bash
-   git clone https://github.com/ines312692/CabinetMedicalProject.git
-   cd CabinetMedicalProject/BackendCabinetMedical/pythonProject
+   git clone https://github.com/RayenMalouche/Application-mobile-de-gestion-de-cabinet-medical-avec-Ionic.git
+   cd CabinetMedicalProject
 
 ## Installation
 
 ### Backend
 1. Clonez le dépôt :
    ```bash
-   git clone https://github.com/ines312692/cabinet-medical.git
+   git clone https://github.com/RayenMalouche/Application-mobile-de-gestion-de-cabinet-medical-avec-Ionic.git
    cd CabinetMedical/BackendCabinetMedical/pythonProject
    
 2. Créez un environnement virtuel :
