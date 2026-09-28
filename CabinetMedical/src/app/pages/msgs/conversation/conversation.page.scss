@@ -1,26 +1,38 @@
-.message-container {
-    display: flex;
-    flex-direction: column;
-    margin: 8px 16px;
-  }
-  
-  .sent {
+.bubbles {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bubble {
+  align-self: flex-start;
+  max-width: 80%;
+  margin: 0;
+  padding: 10px 14px;
+  border: 1px solid var(--cm-rule);
+  border-radius: 14px 14px 14px 4px;
+  background: var(--cm-card);
+  overflow-wrap: anywhere;
+
+  &.sent {
     align-self: flex-end;
-    background-color: #DCF8C6;
-    color: black;
-    padding: 8px 12px;
-    border-radius: 10px;
-    max-width: 70%;
-    margin-bottom: 4px;
+    border-color: var(--cm-teal);
+    border-radius: 14px 14px 4px 14px;
+    background: var(--cm-teal);
+    color: #fff;
   }
-  
-  .received {
-    align-self: flex-start;
-    background-color: #ECECEC;
-    color: black;
-    padding: 8px 12px;
-    border-radius: 10px;
-    max-width: 70%;
-    margin-bottom: 4px;
+}
+
+.composer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+
+  ion-input {
+    --background: var(--cm-card);
+    --padding-start: 14px;
+    border: 1px solid var(--cm-rule);
+    border-radius: 999px;
   }
-  
+}

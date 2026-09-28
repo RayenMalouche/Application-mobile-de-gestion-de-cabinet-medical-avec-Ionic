@@ -8,11 +8,13 @@ import { AuthService } from '../../services/auth.service';
 import { LoginResponse } from '../../models/LoginResponse.interface';
 import { Router } from '@angular/router';
 
+import { RdvCardComponent } from '../../shared/rdv-card.component';
+
 @Component({
   selector: 'app-appointment-confirmation',
   templateUrl: './appointment-confirmation.page.html',
   standalone: true,
-  imports: [IonicModule, NgIf],
+  imports: [RdvCardComponent, IonicModule, NgIf],
   providers: [DatePipe],
   styleUrls: ['./appointment-confirmation.page.scss']
 })

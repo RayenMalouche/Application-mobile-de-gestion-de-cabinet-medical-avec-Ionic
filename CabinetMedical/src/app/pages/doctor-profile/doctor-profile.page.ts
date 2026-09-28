@@ -18,8 +18,7 @@ import { HttpClient } from '@angular/common/http';
     NgIf,
     FormsModule,
     ManageAppointmentsPage,
-    NgForOf,
-    NgStyle
+    NgForOf
   ]
 })
 export class DoctorProfilePage implements OnInit {

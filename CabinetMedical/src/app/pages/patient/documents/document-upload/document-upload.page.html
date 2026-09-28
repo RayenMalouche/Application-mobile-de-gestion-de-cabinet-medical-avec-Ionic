@@ -1,18 +1,15 @@
-<div id="container">
-  <div class="upload-area" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)">
+<section class="cm-sheet">
+  <span class="cm-kicker">Ajouter au dossier</span>
+  <div class="drop" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)" (click)="fileInput.click()" tabindex="0" (keydown.enter)="fileInput.click()">
     <input type="file" (change)="onFileSelected($event)" hidden #fileInput />
-    <ion-icon name="cloud-upload-outline" size="large"></ion-icon>
-    <p>Drag & Drop files here or click to select files</p>
-    <ion-button expand="block" (click)="fileInput.click()">Select File</ion-button>
-    <ion-button expand="block" color="primary" (click)="onUpload()">Send Document</ion-button>
+    <ion-icon name="cloud-upload-outline"></ion-icon>
+    <strong>{{ selectedFileName || 'Déposez un fichier ou touchez pour choisir' }}</strong>
+    <span>PDF, image ou document</span>
   </div>
-  <div class="file-info">
-    <div *ngIf="selectedFileName" class="file-name">
-      <p>Selected File: {{ selectedFileName }}</p>
-    </div>
-    <ion-progress-bar *ngIf="uploadProgress >= 0" [value]="uploadProgress"></ion-progress-bar>
-    <div *ngIf="uploadProgress >= 0">
-      <p>Upload Progress: {{ uploadPercentage }}%</p>
-    </div>
-  </div>
-</div>
+  <ion-progress-bar *ngIf="uploadProgress >= 0" [value]="uploadProgress"></ion-progress-bar>
+  <p class="progress" *ngIf="uploadProgress >= 0">Envoi : {{ uploadPercentage }} %</p>
+  <ion-button expand="block" (click)="onUpload()" [disabled]="!selectedFileName">
+    <ion-icon name="send-outline" slot="start"></ion-icon>
+    Envoyer au médecin
+  </ion-button>
+</section>

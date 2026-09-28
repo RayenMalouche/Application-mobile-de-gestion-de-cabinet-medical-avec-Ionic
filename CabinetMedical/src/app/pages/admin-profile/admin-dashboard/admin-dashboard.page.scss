@@ -1,49 +1,43 @@
-// admin-dashboard.component.scss
-.dashboard-container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .loading-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 200px;
-    
-    ion-spinner {
-      width: 60px;
-      height: 60px;
-    }
-  }
-  
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin: 20px 0;
-  }
-  
-  ion-card {
-    ion-card-content {
-      h2 {
-        font-size: 2.5rem;
-        margin: 10px 0;
-        text-align: center;
-        color: var(--ion-color-primary);
-      }
-    }
-  }
-  
-  ion-badge {
-    font-size: 1.2rem;
-    padding: 8px 12px;
-  }
+.period {
+  width: auto;
+  margin: 8px 16px;
+}
 
-  .appointments-content {
-    text-align: center;
+.big {
+  margin: 4px 0 6px;
+  font-family: var(--cm-font-display);
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+.muted {
+  color: var(--cm-muted);
+}
+
+.ad {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px dotted var(--cm-rule);
+
+  img {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
   }
-  
-  .text-center {
-    text-align: center;
+}
+
+.ad__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+
+  span {
+    color: var(--cm-muted);
+    font-size: 0.85rem;
   }
+}

@@ -1,39 +1,42 @@
-
-
-  <div *ngIf="history" class="card">
+<ng-container *ngIf="history">
+  <section class="cm-sheet booklet">
     <h2><ion-icon name="calendar-outline"></ion-icon> Rendez-vous</h2>
     <ul>
-      <li *ngFor="let appointment of history.appointments">
-        <ion-icon name="time-outline"></ion-icon> {{ appointment.date }} - {{ appointment.reason }}
-      </li>
+      <li *ngFor="let appointment of history.appointments"><time>{{ appointment.date }}</time> {{ appointment.reason }}</li>
+      <li class="none" *ngIf="!history.appointments?.length">Aucun rendez-vous passé.</li>
     </ul>
-  </div>
+  </section>
 
-  <div *ngIf="history" class="card">
+  <section class="cm-sheet booklet">
     <h2><ion-icon name="chatbubbles-outline"></ion-icon> Consultations</h2>
     <ul>
-      <li *ngFor="let consultation of history.consultations">
-        <ion-icon name="document-text-outline"></ion-icon> {{ consultation.date }} - {{ consultation.notes }}
-      </li>
+      <li *ngFor="let consultation of history.consultations"><time>{{ consultation.date }}</time> {{ consultation.notes }}</li>
+      <li class="none" *ngIf="!history.consultations?.length">Aucune consultation enregistrée.</li>
     </ul>
-  </div>
+  </section>
+</ng-container>
 
-  <div *ngIf="diagnostics" class="card">
-    <h2><ion-icon name="medkit-outline"></ion-icon> Diagnostics</h2>
+<ng-container *ngIf="diagnostics">
+  <section class="cm-sheet booklet">
+    <h2><ion-icon name="flask-outline"></ion-icon> Diagnostics</h2>
     <ul>
-      <li *ngFor="let diagnostic of diagnostics.diagnostics">
-        <ion-icon name="flask-outline"></ion-icon> {{ diagnostic.date }} - {{ diagnostic.result }}
-      </li>
+      <li *ngFor="let diagnostic of diagnostics.diagnostics"><time>{{ diagnostic.date }}</time> {{ diagnostic.result }}</li>
+      <li class="none" *ngIf="!diagnostics.diagnostics?.length">Aucun diagnostic.</li>
     </ul>
-  </div>
+  </section>
 
-  <div *ngIf="diagnostics" class="card">
-    <h2><ion-icon name="clipboard-outline"></ion-icon> Ordonnances</h2>
+  <section class="cm-sheet booklet rx">
+    <h2><ion-icon name="document-text-outline"></ion-icon> Ordonnances</h2>
     <ul>
-      <li *ngFor="let prescription of diagnostics.prescriptions">
-        <ion-icon name="pill-outline"></ion-icon> {{ prescription.date }} - {{ prescription.medication }}
-      </li>
+      <li *ngFor="let prescription of diagnostics.prescriptions"><time>{{ prescription.date }}</time> {{ prescription.medication }}</li>
+      <li class="none" *ngIf="!diagnostics.prescriptions?.length">Aucune ordonnance.</li>
     </ul>
-  </div>
-  <ion-button (click)="downloadDiagnosticsPdf()">Télécharger PDF</ion-button>
+  </section>
+</ng-container>
 
+<div class="ion-padding">
+  <ion-button expand="block" fill="outline" (click)="downloadDiagnosticsPdf()">
+    <ion-icon name="download-outline" slot="start"></ion-icon>
+    Télécharger le carnet (PDF)
+  </ion-button>
+</div>

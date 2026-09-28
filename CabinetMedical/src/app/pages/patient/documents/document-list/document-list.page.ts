@@ -9,7 +9,8 @@ import { NgForOf, NgIf } from "@angular/common";
   styleUrls: ['./document-list.page.scss'],
   imports: [
     IonicModule,
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   standalone: true
 })

@@ -1,81 +1,50 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start" style="color: #132d5e;">
-      <ion-menu-button menu="main-menu"></ion-menu-button>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="Retour"></ion-back-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button class="profile-button">
-        <ion-icon name="person-circle" class="profile-icon"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <ion-title>Médecin</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content *ngIf="doctor">
-  <!-- Existing content -->
-  <ion-card>
-    <ion-card-header>
-      <ion-row class="ion-align-items-center ion-justify-content-between">
-        <ion-col size="auto">
-          <ion-avatar>
-            <img [src]="'http://localhost:5000/uploads/' + doctor.image" alt="Doctor Avatar" height="80" width="80">
-          </ion-avatar>
-        </ion-col>
-        <ion-col size="auto">
-          <ion-button fill="clear" color="primary" (click)="openConversation()" >
-            <ion-icon slot="start" name="chatbubbles"></ion-icon>
-            
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    
-      <ion-card-title>{{ doctor.name }}</ion-card-title>
-      <ion-card-subtitle>{{ doctor.specialty }}</ion-card-subtitle>
-    </ion-card-header>
-    
-    <ion-card-content>
-      <p>{{ doctor.description }}</p>
-      <ion-item>
-        <ion-icon name="location-outline" slot="start"></ion-icon>
-        <ion-label>{{ doctor.address }}</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-icon name="call-outline" slot="start"></ion-icon>
-        <ion-label>{{ doctor.phone }}</ion-label>
-      </ion-item>
-      <ion-grid>
-        <ion-row>
-          <ion-col size="12">
-            <ion-list-header>
-              <ion-label>Book Appointment</ion-label>
-            </ion-list-header>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="12" size-md="6" size-lg="4" *ngFor="let day of daysOfWeek">
-            <ion-card [ngStyle]="{'background-color': isAvailable(day) ? '#28a745' : '#dc3545', 'color': 'white'}" (click)="openBookingModal(day)">
-              <ion-card-header>
-                <ion-card-title>
-                  <ion-icon [name]="isAvailable(day) ? 'checkmark-circle-outline' : 'close-circle-outline'" slot="start"></ion-icon>
-                  {{ day }}
-                </ion-card-title>
-              </ion-card-header>
-              <ion-card-content>
-                <p *ngIf="isAvailable(day)">{{ getHours(day).join(', ') }}</p>
-                <p *ngIf="!isAvailable(day)">No availability</p>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
 
-  <ion-card *ngIf="isDateCardVisible">
-    <ion-card-header>
-      <ion-card-title>Localisation</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <div id="map" style="height: 300px;"></div>
-    </ion-card-content>
-  </ion-card>
+<ion-content *ngIf="doctor">
+  <section class="door">
+    <img class="door__photo" [src]="'http://localhost:5000/uploads/' + doctor.image" [alt]="'Photo du Dr ' + doctor.name" />
+    <span class="cm-kicker">{{ doctor.specialty }}</span>
+    <h1>{{ doctor.name }}</h1>
+    <p *ngIf="doctor.description" class="door__desc">{{ doctor.description }}</p>
+    <ion-button fill="outline" size="small" (click)="openConversation()">
+      <ion-icon name="chatbubbles-outline" slot="start"></ion-icon>
+      Écrire au médecin
+    </ion-button>
+  </section>
+
+  <section class="cm-sheet">
+    <dl class="cm-fields">
+      <div><dt>Adresse</dt><dd>{{ doctor.address }}</dd></div>
+      <div><dt>Téléphone</dt><dd>{{ doctor.phone }}</dd></div>
+    </dl>
+  </section>
+
+  <section class="cm-sheet">
+    <span class="cm-kicker">Horaires de consultation</span>
+    <h2 class="board-title">Choisissez un jour</h2>
+    <ul class="board">
+      <li *ngFor="let day of daysOfWeek">
+        <button type="button" class="board__day" [class.is-open]="isAvailable(day)" [disabled]="!isAvailable(day)" (click)="openBookingModal(day)">
+          <span class="board__name">{{ day }}</span>
+          <span class="board__hours" *ngIf="isAvailable(day); else closed">
+            <span class="board__slot" *ngFor="let h of getHours(day)">{{ h }}</span>
+          </span>
+          <ng-template #closed><span class="board__closed">Fermé</span></ng-template>
+          <ion-icon *ngIf="isAvailable(day)" name="chevron-forward-outline" aria-hidden="true"></ion-icon>
+        </button>
+      </li>
+    </ul>
+  </section>
+
+  <section class="cm-sheet" *ngIf="isDateCardVisible">
+    <span class="cm-kicker">Localisation</span>
+    <div id="map" class="map"></div>
+  </section>
 </ion-content>

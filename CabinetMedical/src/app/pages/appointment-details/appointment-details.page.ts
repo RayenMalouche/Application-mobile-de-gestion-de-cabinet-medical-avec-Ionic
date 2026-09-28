@@ -5,12 +5,14 @@ import { CommonModule } from '@angular/common';
 import { DoctorService } from '../../services/doctor.service';
 import { Appointment } from '../../models/Appointment.interface';
 
+import { RdvCardComponent } from '../../shared/rdv-card.component';
+
 @Component({
   selector: 'app-appointment-details',
   templateUrl: './appointment-details.page.html',
   styleUrls: ['./appointment-details.page.scss'],
   standalone: true,
-  imports: [
+  imports: [RdvCardComponent, 
     IonicModule,
     CommonModule
   ]

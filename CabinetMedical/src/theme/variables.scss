@@ -1,2 +1,171 @@
-// For information on how to create your own theme, please see:
-// http://ionicframework.com/docs/theming/
+// ============================================================================
+// Cabinet médical — the appointment card.
+//
+// The app is set in the paper of a doctor's practice: the appointment card
+// handed over at reception, the prescription-pad letterhead, the patient file.
+// Ionic's colour and base variables are set here, so every Ionic component
+// (buttons, items, chips, toolbars, tabs) picks the palette up.
+// See the README, "Le design".
+// ============================================================================
+
+:root {
+  // Palette — each colour has one job.
+  --cm-paper: #f7f5ef; // page ground: clinic paper
+  --cm-card: #fffefa; // cards and sheets
+  --cm-rule: #d9d3c6; // ruled lines, borders, perforations
+  --cm-ink: #1d2b36; // type — blue-black ink
+  --cm-muted: #6c7680; // secondary text
+  --cm-teal: #0f7c7a; // surgical teal: primary actions, confirmed
+  --cm-mint: #e2f0ed; // teal wash: selected chips, highlights
+  --cm-iodine: #c9821a; // iodine: waiting, pending
+  --cm-stamp: #c23b35; // rubber-stamp red: refused, cancel, delete
+
+  --cm-font-display: 'Fraunces', Georgia, serif;
+  --cm-font-body: 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --cm-font-mono: 'Red Hat Mono', ui-monospace, monospace;
+
+  // Ionic base
+  --ion-font-family: var(--cm-font-body);
+  --ion-background-color: var(--cm-paper);
+  --ion-background-color-rgb: 247, 245, 239;
+  --ion-text-color: var(--cm-ink);
+  --ion-text-color-rgb: 29, 43, 54;
+  --ion-border-color: var(--cm-rule);
+  --ion-toolbar-background: var(--cm-paper);
+  --ion-toolbar-color: var(--cm-ink);
+  --ion-toolbar-border-color: var(--cm-rule);
+  --ion-tab-bar-background: var(--cm-card);
+  --ion-tab-bar-border-color: var(--cm-rule);
+  --ion-tab-bar-color: var(--cm-muted);
+  --ion-tab-bar-color-selected: var(--cm-teal);
+  --ion-item-background: transparent;
+  --ion-card-background: var(--cm-card);
+  --ion-placeholder-color: var(--cm-muted);
+
+  // Ionic colours
+  --ion-color-primary: #0f7c7a;
+  --ion-color-primary-rgb: 15, 124, 122;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #0d6d6b;
+  --ion-color-primary-tint: #278987;
+
+  --ion-color-secondary: #1d2b36;
+  --ion-color-secondary-rgb: 29, 43, 54;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #1a2630;
+  --ion-color-secondary-tint: #34404a;
+
+  --ion-color-tertiary: #4a6275;
+  --ion-color-tertiary-rgb: 74, 98, 117;
+  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+  --ion-color-tertiary-shade: #415667;
+  --ion-color-tertiary-tint: #5c7283;
+
+  --ion-color-success: #0f7c7a;
+  --ion-color-success-rgb: 15, 124, 122;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #0d6d6b;
+  --ion-color-success-tint: #278987;
+
+  --ion-color-warning: #c9821a;
+  --ion-color-warning-rgb: 201, 130, 26;
+  --ion-color-warning-contrast: #1d2b36;
+  --ion-color-warning-contrast-rgb: 29, 43, 54;
+  --ion-color-warning-shade: #b17217;
+  --ion-color-warning-tint: #ce8f31;
+
+  --ion-color-danger: #c23b35;
+  --ion-color-danger-rgb: 194, 59, 53;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #ab342f;
+  --ion-color-danger-tint: #c84f49;
+
+  --ion-color-medium: #6c7680;
+  --ion-color-medium-rgb: 108, 118, 128;
+  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast-rgb: 255, 255, 255;
+  --ion-color-medium-shade: #5f6871;
+  --ion-color-medium-tint: #7b848d;
+
+  --ion-color-light: #ece8de;
+  --ion-color-light-rgb: 236, 232, 222;
+  --ion-color-light-contrast: #1d2b36;
+  --ion-color-light-contrast-rgb: 29, 43, 54;
+  --ion-color-light-shade: #d0ccc3;
+  --ion-color-light-tint: #eeeae1;
+
+  --ion-color-dark: #1d2b36;
+  --ion-color-dark-rgb: 29, 43, 54;
+  --ion-color-dark-contrast: #ffffff;
+  --ion-color-dark-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-shade: #1a2630;
+  --ion-color-dark-tint: #34404a;
+}
+
+// Dark mode: the same paper under a reading lamp. ThemeService puts `dark` on
+// <body> when the system prefers it and when the Settings toggle is used.
+body.dark {
+  --cm-paper: #131b21;
+  --cm-card: #1b252d;
+  --cm-rule: #2f3d47;
+  --cm-ink: #e9e5db;
+  --cm-muted: #9aa4ad;
+  --cm-teal: #45b3ae;
+  --cm-mint: #1d3635;
+  --cm-iodine: #e3a54a;
+  --cm-stamp: #e0655e;
+
+  // Custom properties resolve where they are declared, so the Ionic base
+  // variables that point at --cm-* must be declared again here.
+  --ion-background-color: var(--cm-paper);
+  --ion-background-color-rgb: 19, 27, 33;
+  --ion-text-color: var(--cm-ink);
+  --ion-text-color-rgb: 233, 229, 219;
+  --ion-border-color: var(--cm-rule);
+  --ion-toolbar-background: var(--cm-paper);
+  --ion-toolbar-color: var(--cm-ink);
+  --ion-toolbar-border-color: var(--cm-rule);
+  --ion-tab-bar-background: var(--cm-card);
+  --ion-tab-bar-border-color: var(--cm-rule);
+  --ion-tab-bar-color: var(--cm-muted);
+  --ion-tab-bar-color-selected: var(--cm-teal);
+  --ion-card-background: var(--cm-card);
+  --ion-placeholder-color: var(--cm-muted);
+
+  --ion-color-primary: #45b3ae;
+  --ion-color-primary-rgb: 69, 179, 174;
+  --ion-color-primary-contrast: #0e1519;
+  --ion-color-primary-contrast-rgb: 14, 21, 25;
+  --ion-color-primary-shade: #3d9e99;
+  --ion-color-primary-tint: #58bbb6;
+
+  --ion-color-success: #45b3ae;
+  --ion-color-success-rgb: 69, 179, 174;
+  --ion-color-success-contrast: #0e1519;
+  --ion-color-success-contrast-rgb: 14, 21, 25;
+  --ion-color-success-shade: #3d9e99;
+  --ion-color-success-tint: #58bbb6;
+
+  --ion-color-secondary: #e9e5db;
+  --ion-color-secondary-rgb: 233, 229, 219;
+  --ion-color-secondary-contrast: #131b21;
+  --ion-color-secondary-contrast-rgb: 19, 27, 33;
+  --ion-color-secondary-shade: #cdcac1;
+  --ion-color-secondary-tint: #ebe8df;
+
+  --ion-color-warning: #e3a54a;
+  --ion-color-warning-rgb: 227, 165, 74;
+  --ion-color-danger: #e0655e;
+  --ion-color-danger-rgb: 224, 101, 94;
+  --ion-color-medium: #9aa4ad;
+  --ion-color-medium-rgb: 154, 164, 173;
+  --ion-color-light: #24313a;
+  --ion-color-light-rgb: 36, 49, 58;
+  --ion-color-light-contrast: #e9e5db;
+  --ion-color-light-contrast-rgb: 233, 229, 219;
+}

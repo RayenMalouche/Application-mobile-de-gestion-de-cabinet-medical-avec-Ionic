@@ -1,20 +1,16 @@
 <ion-tabs>
   <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="home">
-      <span class="material-icons">home</span>
-      <ion-label routerLink="/home">Accueil</ion-label>
+    <ion-tab-button tab="home" routerLink="/home">
+      <ion-icon name="home-outline"></ion-icon>
+      <ion-label>Accueil</ion-label>
     </ion-tab-button>
     <ion-tab-button (click)="navigateToProfile()">
-      <span class="material-icons">person</span>
-      <ion-label>Profil</ion-label>
+      <ion-icon name="person-outline"></ion-icon>
+      <ion-label>Mon dossier</ion-label>
     </ion-tab-button>
     <ion-tab-button tab="settings">
-      <span class="material-icons">settings</span>
+      <ion-icon name="settings-outline"></ion-icon>
       <ion-label>Paramètres</ion-label>
     </ion-tab-button>
-    <!--ion-tab-button tab="medcin">
-      <span class="material-icons">medical_services</span>
-      <ion-label>Medecins</ion-label>
-    </!--ion-tab-button-->
   </ion-tab-bar>
 </ion-tabs>

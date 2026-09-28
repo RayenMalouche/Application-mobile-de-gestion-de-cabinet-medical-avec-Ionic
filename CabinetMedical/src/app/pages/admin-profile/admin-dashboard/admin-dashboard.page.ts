@@ -11,12 +11,14 @@ import { Router } from '@angular/router';
 
 
 
+import { StatCardComponent } from '../../../shared/stat-card.component';
+
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.page.html',
   styleUrls: ['./admin-dashboard.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, FormsModule]
+  imports: [StatCardComponent, CommonModule, IonicModule, FormsModule]
 
 })
 
@@ -28,10 +30,10 @@ export class AdminDashboardPage implements OnInit {
 
 // Update your periods array to match backend expectations:
 periods: PeriodSelection[] = [
-  { value: 'day', label: 'Today' },
-  { value: 'week', label: 'This Week' },
-  { value: 'month', label: 'This Month' },
-  { value: 'year', label: 'This Year' }
+  { value: 'day', label: 'Jour' },
+  { value: 'week', label: 'Semaine' },
+  { value: 'month', label: 'Mois' },
+  { value: 'year', label: 'Année' }
 ];
   selectedPeriod: PeriodSelection = this.periods[1]; // Default to week
 
@@ -54,7 +56,7 @@ loadStats(): void {
     },
     error: (err) => {
       console.error('Error loading stats:', err);
-      this.error = err.message || 'Failed to load statistics';
+      this.error = err.message || 'Impossible de charger les statistiques.';
       this.loading = false;
       this.stats = {
         appointments: {

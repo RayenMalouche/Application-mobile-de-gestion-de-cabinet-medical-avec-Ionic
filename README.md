@@ -34,6 +34,70 @@ Cabinet Medical est une application mobile multiplateforme pour la gestion des r
   - Mettre à jour leurs informations personnelles.
   - Gérer les horaires de disponibilité.
 
+## Le design
+
+L'application reprend **la papeterie du cabinet** : ce que le patient tient
+vraiment en main chez son médecin. Aucun élément ne vient d'un tableau de bord
+générique.
+
+- **La carte de rendez-vous** (`src/app/shared/rdv-card.component.ts`) est
+  l'élément signature. Chaque rendez-vous est une carte à détacher : un talon
+  avec le jour, la date et le mois, un bord perforé avec ses encoches, puis le
+  qui / pourquoi / à quelle heure. Un tampon indique *Confirmé*, *En attente*
+  ou *Refusé*. Les actions (confirmer, refuser, voir la fiche) sont sur la
+  partie détachable. La même carte sert au patient, au médecin et à la
+  confirmation de réservation.
+- **Le papier à en-tête d'ordonnance**, pour la connexion et l'inscription :
+  le logo, le nom du cabinet et le double filet sous l'en-tête.
+- **Le dossier patient** : la fiche patient et la fiche médecin ont un onglet
+  de chemise cartonnée. Les informations sont des lignes pointillées
+  intitulé / valeur, comme sur un formulaire.
+- **Le carnet de santé** pour l'historique, avec le « Rx » dans le coin.
+- **La plaque de porte** pour chaque médecin de l'annuaire, et le tableau
+  hebdomadaire des horaires sur sa page.
+
+**Palette** : définie une fois dans `src/theme/variables.scss` (tokens `--cm-*`,
+branchés sur la palette Ionic). Chaque couleur a un seul rôle.
+
+| Token | Hex | Rôle |
+| --- | --- | --- |
+| `--cm-paper` | `#f7f5ef` | fond de page |
+| `--cm-card` | `#fffefa` | cartes et fiches |
+| `--cm-rule` | `#d9d3c6` | filets, perforations, bordures |
+| `--cm-ink` | `#1d2b36` | texte |
+| `--cm-muted` | `#6c7680` | texte secondaire |
+| `--cm-teal` | `#0f7c7a` | actions, tampon *Confirmé* (`primary`) |
+| `--cm-mint` | `#e2f0ed` | talon de la carte, éléments sélectionnés |
+| `--cm-iodine` | `#c9821a` | tampon *En attente* (`warning`) |
+| `--cm-stamp` | `#c23b35` | tampon *Refusé*, suppression (`danger`) |
+
+Le mode sombre (`body.dark`, activé dans les Paramètres) redéfinit les mêmes
+tokens.
+
+**Typographie** : trois rôles. *Fraunces* pour les titres et les noms,
+*Atkinson Hyperlegible* pour le texte (elle a été dessinée pour les lecteurs
+malvoyants, ce qui compte pour une application de santé), et *Red Hat Mono*
+pour les intitulés, les dates et les heures. Toutes sont auto-hébergées via
+`@fontsource`.
+
+**Mouvement** : le dossier médical s'ouvre quand il contient des documents, et
+les barres des statistiques montent au chargement. Rien d'autre ne bouge. Avec
+`prefers-reduced-motion`, tout s'affiche directement à sa place.
+
+### Repris de component-lab
+
+| Composant | Utilisé pour |
+| --- | --- |
+| `folder.tsx` | `shared/dossier-folder.component.ts` : le dossier médical sur la page Documents. Porté de React/motion vers Angular ; le panneau arrière, les trois feuilles qui s'écartent et le rabat qui bascule sont conservés. Il est recoloré en chemise kraft et affiche le nombre de documents sur l'étiquette |
+| `stats-card.tsx` | `shared/stat-card.component.ts` : le tableau de bord admin. La valeur principale et les barres qui montent sont conservées ; chaque barre porte la couleur de son tampon |
+
+Construits pour ce design : la carte de rendez-vous, l'en-tête d'ordonnance,
+les fiches à onglet, le carnet de santé et les tampons. Écartés : les champs de
+chat animés (la messagerie reste une simple conversation), les graphiques
+`metric-chart` / `line-graph-statistics` (trop « tableau de bord » pour un
+cabinet) et les effets décoratifs (`flickering-grid`, `pixel-trail`,
+`spotlight`), qui ne conviennent pas à une application de santé.
+
 ## Prérequis
 - Node.js et npm
 - Angular CLI

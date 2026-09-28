@@ -13,11 +13,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            
             "allowedCommonJsDependencies": [
               "file-saver"
             ],
-            
             "outputPath": "www",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -25,7 +23,6 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-
               {
                 "glob": "**/*",
                 "input": "public"
@@ -35,15 +32,24 @@
                 "input": "src/assets",
                 "output": "assets"
               },
-              "src/firebase-messaging-sw.js"
-            ,
+              "src/firebase-messaging-sw.js",
               {
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
               }
             ],
-            "styles": ["src/global.scss", "src/theme/variables.scss"],
+            "styles": [
+              "node_modules/@fontsource/atkinson-hyperlegible/400.css",
+              "node_modules/@fontsource/atkinson-hyperlegible/700.css",
+              "node_modules/@fontsource/fraunces/500.css",
+              "node_modules/@fontsource/fraunces/600.css",
+              "node_modules/@fontsource/red-hat-mono/400.css",
+              "node_modules/@fontsource/red-hat-mono/500.css",
+              "node_modules/@fontsource/red-hat-mono/700.css",
+              "src/global.scss",
+              "src/theme/variables.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -112,26 +118,33 @@
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
             "assets": [
-
-                {
-                  "glob": "**/*",
-                  "input": "public"
-                },
-                {
-                  "glob": "**/*",
-                  "input": "src/assets",
-                  "output": "assets"
-
-                },
-              "src/firebase-messaging-sw.js"
-              ,
+              {
+                "glob": "**/*",
+                "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "assets"
+              },
+              "src/firebase-messaging-sw.js",
               {
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
               }
             ],
-            "styles": ["src/global.scss", "src/theme/variables.scss"],
+            "styles": [
+              "node_modules/@fontsource/atkinson-hyperlegible/400.css",
+              "node_modules/@fontsource/atkinson-hyperlegible/700.css",
+              "node_modules/@fontsource/fraunces/500.css",
+              "node_modules/@fontsource/fraunces/600.css",
+              "node_modules/@fontsource/red-hat-mono/400.css",
+              "node_modules/@fontsource/red-hat-mono/500.css",
+              "node_modules/@fontsource/red-hat-mono/700.css",
+              "src/global.scss",
+              "src/theme/variables.scss"
+            ],
             "scripts": []
           },
           "configurations": {

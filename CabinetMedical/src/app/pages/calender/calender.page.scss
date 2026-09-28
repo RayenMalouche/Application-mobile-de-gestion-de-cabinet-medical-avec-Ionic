@@ -1,90 +1,58 @@
-.calendar {
-  width: 100%;
-  max-width: 800px;
-  margin: auto;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.calendar-header {
+.cal__head {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  background-color: #f4f4f4;
-  font-weight: bold;
+  justify-content: space-between;
+
+  h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    text-transform: capitalize;
+  }
 }
 
-.calendar-body {
-  padding: 10px;
-}
-
-.calendar-weekdays, .calendar-days {
+.cal__grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
+  gap: 4px;
+  margin-top: 8px;
 }
 
-.calendar-weekdays div, .calendar-days div {
+.cal__wd {
+  padding: 4px 0;
+  font-family: var(--cm-font-mono);
+  font-size: 0.7rem;
   text-align: center;
-  padding: 10px;
-  border-radius: 5px;
+  text-transform: uppercase;
+  color: var(--cm-muted);
 }
 
-.calendar-days div {
-  background-color: #f9f9f9;
-  position: relative;
+.cal__day {
+  min-height: 52px;
+  padding: 4px;
+  border: 1px solid var(--cm-rule);
+  border-radius: 8px;
+  font-family: var(--cm-font-mono);
+  font-size: 0.85rem;
+
+  &.is-empty {
+    border-color: transparent;
+  }
+
+  &.is-today {
+    border-color: var(--cm-teal);
+    background: var(--cm-mint);
+    font-weight: 700;
+  }
 }
 
-.calendar-days div.today {
-  background-color: #007bff;
-  color: white;
-}
-
-.calendar-days div.empty {
-  background-color: transparent;
-}
-
-.availability {
-  background-color: #28a745;
-  color: white;
-  padding: 2px 5px;
-  border-radius: 3px;
-  font-size: 0.8em;
-  position: absolute;
-  bottom: 5px;
-  left: 5px;
-  right: 5px;
-  text-align: center;
-}
-
-button {
-  margin-top: 5px;
-  padding: 5px 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-.modal-content {
-  padding: 20px;
-  background-color: white;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.modal-content h2 {
-  margin-bottom: 20px;
-}
-
-.modal-content button {
-  margin: 10px;
+.cal__slot {
+  display: block;
+  width: 100%;
+  margin-top: 3px;
+  padding: 2px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--cm-teal);
+  color: #fff;
+  font-size: 0.65rem;
 }

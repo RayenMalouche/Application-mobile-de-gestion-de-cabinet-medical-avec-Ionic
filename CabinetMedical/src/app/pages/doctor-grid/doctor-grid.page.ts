@@ -3,7 +3,7 @@ import { DoctorService } from '../../services/doctor.service';
 import {Doctor} from "../../models/Docter.interface";
 import {DoctorCardPage} from "../doctor-card/doctor-card.page";
 import {IonicModule} from "@ionic/angular";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 
 
 @Component({
@@ -14,7 +14,8 @@ import {NgForOf} from "@angular/common";
   imports: [
     DoctorCardPage,
     IonicModule,
-    NgForOf
+    NgForOf,
+    NgIf
   ]
 })
 export class DoctorGridPage implements OnInit {

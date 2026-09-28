@@ -1,64 +1,35 @@
-#container {
+.drop {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  gap: 4px;
+  margin: 10px 0 12px;
+  padding: 22px 12px;
+  border: 2px dashed var(--cm-rule);
+  border-radius: 12px;
+  color: var(--cm-muted);
+  text-align: center;
+  cursor: pointer;
 
-  .upload-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 2px dashed #ccc;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    transition: border-color 0.3s;
-    width: 100%;
-    max-width: 800px;
-
-    &:hover {
-      border-color: #007bff;
-    }
-
-    ion-icon {
-      margin-bottom: 10px;
-    }
-
-    p {
-      margin: 10px 0;
-    }
-
-    ion-button {
-      margin-top: 10px;
-    }
+  &:hover,
+  &:focus-visible {
+    border-color: var(--cm-teal);
+    outline: none;
   }
 
-  .file-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    width: 100%;
+  ion-icon {
+    font-size: 2rem;
+    color: var(--cm-teal);
   }
 
-  .file-name {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-    font-weight: bold;
-    color: #495057;
+  strong {
+    color: var(--cm-ink);
+    overflow-wrap: anywhere;
   }
+}
+
+.progress {
+  margin: 6px 0 10px;
+  font-family: var(--cm-font-mono);
+  font-size: 0.85rem;
 }

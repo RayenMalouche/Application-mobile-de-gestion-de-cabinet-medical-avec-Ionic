@@ -1,63 +1,38 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start" style="color: #1358dc;">
+    <ion-buttons slot="start">
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-buttons>
-    <ion-buttons slot="end" >
-      <ion-button class="notification-button" >
-        <ion-icon name="notifications"></ion-icon>
-
-      </ion-button>
-      <ion-button class="profile-button">
-        <ion-icon name="person-circle" class="profile-icon"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-
+    <ion-title>Nouvelle annonce</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <form [formGroup]="pubForm" (ngSubmit)="onSubmit()" class="pub-form">
+<ion-content>
+  <form class="cm-sheet pub" [formGroup]="pubForm" (ngSubmit)="onSubmit()">
+    <span class="cm-kicker">Annonce sur l'accueil</span>
 
-    <!-- Aperçu de l'image -->
-    <div class="image-preview" *ngIf="imagePreview">
-      <img [src]="imagePreview" alt="Aperçu de la publicité">
-    </div>
+    <button type="button" class="pick" (click)="fileInput.click()">
+      <img *ngIf="imagePreview; else noImage" [src]="imagePreview" alt="Aperçu de l'annonce" />
+      <ng-template #noImage>
+        <ion-icon name="image-outline"></ion-icon>
+        <span>Choisir une image</span>
+      </ng-template>
+    </button>
+    <input type="file" accept="image/*" (change)="onImageSelected($event)" hidden #fileInput />
 
-    <!-- Champ Image -->
-
-    <ion-item class="file-input form-field" >
-      <ion-label position="stacked">Image de la publicité </ion-label>
-      <input type="file" accept="image/*" (change)="onImageSelected($event)" hidden #fileInput>
-      <ion-button expand="block" fill="outline" (click)="fileInput.click()" class="upload-btn">
-        <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
-        Choisir une image
-      </ion-button>
+    <ion-item [class.is-invalid]="pubForm.get('titre')?.invalid && pubForm.get('titre')?.touched">
+      <ion-input label="Titre" labelPlacement="stacked" formControlName="titre" type="text"></ion-input>
+    </ion-item>
+    <ion-item [class.is-invalid]="pubForm.get('description')?.invalid && pubForm.get('description')?.touched">
+      <ion-textarea label="Description" labelPlacement="stacked" formControlName="description" rows="4"></ion-textarea>
+    </ion-item>
+    <ion-item [class.is-invalid]="pubForm.get('dateFin')?.invalid && pubForm.get('dateFin')?.touched">
+      <ion-input label="Date de fin" labelPlacement="stacked" formControlName="dateFin" type="date" [min]="today"></ion-input>
     </ion-item>
 
-    <!-- Champ Titre -->
-    <ion-item class="form-field" [class.is-invalid]="pubForm.get('titre')?.invalid && pubForm.get('titre')?.touched">
-      <ion-label position="stacked">Titre </ion-label>
-      <ion-input formControlName="titre" type="text"></ion-input>
-    </ion-item>
-
-    <!-- Champ Description -->
-    <ion-item class="form-field" [class.is-invalid]="pubForm.get('description')?.invalid && pubForm.get('description')?.touched">
-      <ion-label position="stacked">Description </ion-label>
-      <ion-textarea formControlName="description" rows="4"></ion-textarea>
-    </ion-item>
-
-    <!-- Champ Date de fin -->
-    <ion-item class="form-field" [class.is-invalid]="pubForm.get('dateFin')?.invalid && pubForm.get('dateFin')?.touched">
-      <ion-label position="stacked">Date de fin </ion-label>
-      <ion-input formControlName="dateFin" type="date" [min]="today"></ion-input>
-    </ion-item>
-
-    <!-- Bouton de soumission -->
-    <ion-button type="submit" expand="block" class="submit-btn" [disabled]="pubForm.invalid || isLoading">
-      <ion-spinner *ngIf="isLoading"></ion-spinner>
+    <ion-button type="submit" expand="block" class="go" [disabled]="pubForm.invalid || isLoading">
+      <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
       <span *ngIf="!isLoading">Publier</span>
     </ion-button>
-
   </form>
 </ion-content>

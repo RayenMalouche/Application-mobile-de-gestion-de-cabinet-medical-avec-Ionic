@@ -1,54 +1,35 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start" style="color: #1358dc;">
+    <ion-buttons slot="start">
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-buttons>
-    <ion-buttons slot="end" >
-      <!-- Notification button with badge -->
-      <ion-button class="notification-button" >
-        <ion-icon name="notifications"></ion-icon>
-
-      </ion-button>
-      <ion-button class="profile-button">
-        <ion-icon name="person-circle" class="profile-icon"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-
+    <ion-title>Administration</ion-title>
   </ion-toolbar>
 </ion-header>
-<br>
 
-<ion-content [fullscreen]="true" class="admin-content">
-  <ion-header collapse="condense" class="condensed-header">
-    <ion-toolbar>
-      <ion-title size="large">Admin Dashboard</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="cm-head">
+    <span class="cm-kicker">Direction du cabinet</span>
+    <h1>Administration</h1>
+  </div>
 
+  <div class="desk">
+    <a class="desk__card" routerLink="/admin-profile/dashboard" routerLinkActive="is-active">
+      <ion-icon name="stats-chart-outline"></ion-icon>
+      <strong>Tableau de bord</strong>
+      <span>Statistiques et rapports</span>
+    </a>
+    <button type="button" class="desk__card" (click)="onButtonClick()">
+      <ion-icon name="person-add-outline"></ion-icon>
+      <strong>Ajouter un médecin</strong>
+      <span>Créer un compte médecin</span>
+    </button>
+    <button type="button" class="desk__card" (click)="onButtonClick2()">
+      <ion-icon name="megaphone-outline"></ion-icon>
+      <strong>Ajouter une annonce</strong>
+      <span>Publier sur l'accueil</span>
+    </button>
+  </div>
 
-
-    <div class="action-cards">
-      <ion-card class="action-card" routerLink="/admin-profile/dashboard" routerLinkActive="active-card">
-        <ion-icon name="stats-chart-outline" class="card-icon"></ion-icon>
-        <h2>Medical Dashboard</h2>
-        <p>Voir les statistiques et rapports</p>
-      </ion-card>
-
-      <ion-card class="action-card" (click)="onButtonClick()">
-        <ion-icon name="person-add-outline" class="card-icon"></ion-icon>
-        <h2>Ajouter un médecin</h2>
-        <p>Créer un nouveau compte médecin</p>
-      </ion-card>
-
-      <ion-card class="action-card" (click)="onButtonClick2()">
-        <ion-icon name="megaphone-outline" class="card-icon"></ion-icon>
-        <h2>Ajouter une pub</h2>
-        <p>Créer une nouvelle publicité</p>
-      </ion-card>
-    </div>
-
-
-
-    <router-outlet></router-outlet>
-
+  <router-outlet></router-outlet>
 </ion-content>
