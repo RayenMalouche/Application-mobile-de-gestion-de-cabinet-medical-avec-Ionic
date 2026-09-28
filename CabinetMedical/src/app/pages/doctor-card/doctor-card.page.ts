@@ -22,7 +22,10 @@ export class DoctorCardPage implements OnInit {
   ngOnInit() {
 
   }
+  // Tapping the card opens the doctor's page (it used to do nothing); booking
+  // starts from there too, so both go to the same place.
   viewDoctorDetails() {
+    this.bookAppointment();
   }
   bookAppointment() {
     if (!this.doctor?._id) {

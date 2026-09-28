@@ -48,7 +48,7 @@ export class DocumentUploadPage implements OnInit {
 
   async showAlert(message: string, cssClass: string) {
     const alert = await this.alertController.create({
-      header: 'Alert',
+      header: 'Attention',
       message: message,
       cssClass: cssClass,
       buttons: ['OK']

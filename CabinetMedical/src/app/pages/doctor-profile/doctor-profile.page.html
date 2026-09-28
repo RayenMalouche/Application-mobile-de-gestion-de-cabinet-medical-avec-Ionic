@@ -1,91 +1,64 @@
-<!-- doctor-profile.page.html -->
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start" style="color: #132d5e;">
+    <ion-buttons slot="start">
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button class="profile-button">
-        <ion-icon name="person-circle" class="profile-icon"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <ion-title>Mon cabinet</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-spinner *ngIf="isLoadingDoctor" name="crescent" class="loading-spinner"></ion-spinner>
+  <div class="cm-center" *ngIf="isLoadingDoctor"><ion-spinner name="crescent"></ion-spinner></div>
 
-  <ion-card *ngIf="doctorDetails && !isLoadingDoctor" class="profile-card">
-    <ion-card-content>
-      <div class="profile-content">
-        <!-- Large profile image -->
-        <div class="profile-image-container">
-          <img [src]="'http://localhost:5000/uploads/' + doctorDetails.image"
-               class="profile-image"
-               alt="Doctor profile image">
-        </div>
-
-        <div class="profile-details">
-          <h1 class="doctor-name">{{ doctorDetails.name }}</h1>
-          <h2 class="doctor-specialty">{{ doctorDetails.specialty }}</h2>
-
-          <ion-list lines="none">
-            <ion-item>
-              <ion-icon name="mail-outline" slot="start"></ion-icon>
-              <ion-label>Email: {{ doctorDetails.email }}</ion-label>
-            </ion-item>
-
-            <ion-item>
-              <ion-icon name="call-outline" slot="start"></ion-icon>
-              <ion-label>Téléphone: {{ doctorDetails.phone }}</ion-label>
-            </ion-item>
-
-            <ion-item>
-              <ion-icon name="location-outline" slot="start"></ion-icon>
-              <ion-label>Adresse: {{ doctorDetails.address }}</ion-label>
-            </ion-item>
-          </ion-list>
-        </div>
+  <section class="cm-sheet file" *ngIf="doctorDetails && !isLoadingDoctor">
+    <div class="file__tab">Fiche médecin</div>
+    <div class="file__who">
+      <img class="file__photo" [src]="'http://localhost:5000/uploads/' + doctorDetails.image" alt="" />
+      <div>
+        <h1>{{ doctorDetails.name }}</h1>
+        <h2>{{ doctorDetails.specialty }}</h2>
       </div>
-    </ion-card-content>
-  </ion-card>
+    </div>
+    <dl class="cm-fields">
+      <div><dt>Email</dt><dd>{{ doctorDetails.email }}</dd></div>
+      <div><dt>Téléphone</dt><dd>{{ doctorDetails.phone }}</dd></div>
+      <div><dt>Adresse</dt><dd>{{ doctorDetails.address }}</dd></div>
+    </dl>
+  </section>
 
-  <div *ngIf="doctorDetails && !isLoadingDoctor" class="tabs-section">
+  <div *ngIf="doctorDetails && !isLoadingDoctor" class="ion-padding-horizontal">
     <ion-segment [(ngModel)]="selectedTab" mode="md">
       <ion-segment-button value="manage-appointments">
-        <ion-label>Gérer les rendez-vous</ion-label>
-        <ion-icon name="calendar-outline"></ion-icon>
+        <ion-label>Rendez-vous</ion-label>
       </ion-segment-button>
       <ion-segment-button value="my-documents">
-        <ion-label>Mes documents</ion-label>
-        <ion-icon name="document-outline"></ion-icon>
+        <ion-label>Documents reçus</ion-label>
       </ion-segment-button>
     </ion-segment>
   </div>
 
-  <div *ngIf="selectedTab === 'manage-appointments' && doctorId" class="component-container">
-    <app-manage-appointments [doctorId]="doctorId"></app-manage-appointments>
-  </div>
+  <app-manage-appointments *ngIf="selectedTab === 'manage-appointments' && doctorId" [doctorId]="doctorId"></app-manage-appointments>
 
-  <div *ngIf="selectedTab === 'my-documents'" class="component-container">
-    <ion-list>
-      <ion-item *ngFor="let file of doctorFiles">
-        <ion-label>
-          <h2>{{ file.filename }}</h2>
-          <p [ngStyle]="{'color': file.status === 'view' ? 'green' : (file.status === 'pending' ? 'orange' : 'red')}">
-            Status: {{ file.status }}
-          </p>
-        </ion-label>
-        <ion-button fill="outline" (click)="downloadFile(file)">
+  <ng-container *ngIf="selectedTab === 'my-documents'">
+    <div class="cm-empty" *ngIf="doctorFiles && doctorFiles.length === 0">
+      <ion-icon name="folder-open-outline"></ion-icon>
+      <h3>Aucun document</h3>
+      <p>Les documents envoyés par vos patients arriveront ici.</p>
+    </div>
+    <section class="cm-sheet docs" *ngIf="doctorFiles?.length">
+      <div class="doc" *ngFor="let file of doctorFiles">
+        <ion-icon name="document-text-outline" class="doc__icon"></ion-icon>
+        <div class="doc__name">
+          <strong>{{ file.filename }}</strong>
+          <span class="cm-stamp" [class.is-ok]="file.status === 'view'" [class.is-wait]="file.status === 'pending'" [class.is-no]="file.status !== 'view' && file.status !== 'pending'">
+            {{ file.status === 'view' ? 'Consulté' : file.status === 'pending' ? 'Nouveau' : file.status }}
+          </span>
+        </div>
+        <ion-button fill="outline" size="small" (click)="downloadFile(file)">
           <ion-icon name="download-outline" slot="start"></ion-icon>
-          Télécharger
+          Ouvrir
         </ion-button>
-      </ion-item>
-      <ion-item *ngIf="doctorFiles && doctorFiles.length === 0" lines="none">
-        <ion-label class="no-files-message">
-          Aucun document disponible
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  </div>
+      </div>
+    </section>
+  </ng-container>
 </ion-content>

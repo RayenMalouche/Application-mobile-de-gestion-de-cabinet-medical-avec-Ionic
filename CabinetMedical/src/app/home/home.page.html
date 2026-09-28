@@ -1,61 +1,52 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start" style="color: #1358dc;">
+    <ion-buttons slot="start">
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-buttons>
+    <ion-title>Cabinet médical</ion-title>
     <ion-buttons slot="end" *ngIf="isLoggedIn">
-      <!-- Notification button with badge -->
-      <ion-button class="notification-button" (click)="goToNotifications()">
-        <ion-icon name="notifications"></ion-icon>
-        <ion-badge *ngIf="notificationCount > 0" class="notification-badge">{{ notificationCount }}</ion-badge>
+      <ion-button (click)="goToNotifications()" aria-label="Notifications">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <ion-badge *ngIf="notificationCount > 0" color="danger" class="badge">{{ notificationCount }}</ion-badge>
       </ion-button>
-
-      <!-- Messages button with badge -->
-      <ion-button class="messages-button" (click)="openMessages()">
-        <ion-icon name="mail"></ion-icon> <!-- Utilisation d'une icône Ionic native -->
-        <ion-badge *ngIf="unreadMessagesCount > 0" class="notification-badge">{{ unreadMessagesCount }}</ion-badge>
+      <ion-button (click)="openMessages()" aria-label="Messages">
+        <ion-icon name="mail-outline"></ion-icon>
+        <ion-badge *ngIf="unreadMessagesCount > 0" color="danger" class="badge">{{ unreadMessagesCount }}</ion-badge>
       </ion-button>
-
-      <!-- Profile button -->
-      <ion-button class="profile-button" (click)="goToProfile()">
-        <ion-icon name="person-circle" class="profile-icon"></ion-icon>
+      <ion-button (click)="goToProfile()" aria-label="Mon dossier">
+        <ion-icon name="person-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
-  <swiper-container (slideChange)="swiperSlideChanged($event)" [loop]="true" [pagination]="true">
+  <div class="cm-head">
+    <span class="cm-kicker">Annuaire du cabinet</span>
+    <h1>Trouvez votre médecin</h1>
+    <p>Choisissez une spécialité et une région, puis prenez rendez-vous.</p>
+  </div>
+
+  <swiper-container *ngIf="pubs?.length" class="pubs" (slideChange)="swiperSlideChanged($event)" [loop]="true" [pagination]="true">
     <swiper-slide *ngFor="let pub of pubs">
-      <div class="swiper-zoom-container">
-        <img [src]="'http://localhost:5000/' + pub.image" alt="Image pub" width="100%"/>
-      </div>
+      <img [src]="'http://localhost:5000/' + pub.image" [alt]="pub.titre || 'Annonce du cabinet'" />
     </swiper-slide>
   </swiper-container>
-  <ion-searchbar show-clear-button="always" clear-icon="trash-bin" placeholder="Rechercher" (ionInput)="searchDoctors($event)"></ion-searchbar>
-  <div class="chips-container">
-    <ion-chip
-      [color]="!selectedSpecialty ? 'primary' : 'medium'"
-      (click)="clearSpecialtyFilter()">
-      Tous
-    </ion-chip>
-    <ion-chip
-      *ngFor="let spec of allSpecialties"
-      [color]="selectedSpecialty === spec ? 'primary' : 'medium'"
-      (click)="toggleSpecialtyFilter(spec)">
+
+  <ion-searchbar class="cm-search" show-clear-button="focus" placeholder="Nom, spécialité…" (ionInput)="searchDoctors($event)"></ion-searchbar>
+
+  <span class="cm-kicker filter-label">Spécialité</span>
+  <div class="chips">
+    <ion-chip [color]="!selectedSpecialty ? 'primary' : undefined" [class.on]="!selectedSpecialty" (click)="clearSpecialtyFilter()">Toutes</ion-chip>
+    <ion-chip *ngFor="let spec of allSpecialties" [color]="selectedSpecialty === spec ? 'primary' : undefined" [class.on]="selectedSpecialty === spec" (click)="toggleSpecialtyFilter(spec)">
       {{ spec }}
     </ion-chip>
   </div>
 
-  <div class="chips-container governorats-row">
-    <ion-chip
-      [color]="!selectedGovernorat ? 'success' : 'medium'"
-      (click)="clearGovernoratFilter()">
-      Tous
-    </ion-chip>
-    <ion-chip
-      *ngFor="let gov of allGovernorats"
-      [color]="selectedGovernorat === gov ? 'success' : 'medium'"
-      (click)="toggleGovernoratFilter(gov)">
+  <span class="cm-kicker filter-label">Gouvernorat</span>
+  <div class="chips">
+    <ion-chip [color]="!selectedGovernorat ? 'primary' : undefined" [class.on]="!selectedGovernorat" (click)="clearGovernoratFilter()">Tous</ion-chip>
+    <ion-chip *ngFor="let gov of allGovernorats" [color]="selectedGovernorat === gov ? 'primary' : undefined" [class.on]="selectedGovernorat === gov" (click)="toggleGovernoratFilter(gov)">
       {{ gov }}
     </ion-chip>
   </div>

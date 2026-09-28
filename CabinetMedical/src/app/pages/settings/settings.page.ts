@@ -60,7 +60,7 @@ export class SettingsPage implements OnInit {
       },
       error: (error: any) => {
         console.error('Failed to load user data', error);
-        this.presentToast('Failed to load user data', 'danger');
+        this.presentToast('Impossible de charger votre profil.', 'danger');
       }
     });
   }
@@ -77,13 +77,13 @@ export class SettingsPage implements OnInit {
   async onSubmit() {
     if (!this.form.valid) {
       this.form.markAllAsTouched();
-      await this.presentToast('Please fill all required fields correctly', 'warning');
+      await this.presentToast('Veuillez remplir correctement tous les champs obligatoires.', 'warning');
       return;
     }
 
     if (!this.userId) {
       console.error('User ID is missing');
-      await this.presentToast('User ID is missing', 'danger');
+      await this.presentToast('Identifiant utilisateur manquant.', 'danger');
       return;
     }
 
@@ -101,12 +101,12 @@ export class SettingsPage implements OnInit {
     this.authService.updateUser(this.userId, formData).subscribe({
       next: async (response: any) => {
         console.log('Update successful', response);
-        await this.presentToast('Profile updated successfully', 'success');
+        await this.presentToast('Profil mis à jour.', 'success');
         this.router.navigate(['/settings']);
       },
       error: async (error: any) => {
         console.error('Update failed', error);
-        await this.presentToast('Failed to update profile', 'danger');
+        await this.presentToast('La mise à jour du profil a échoué.', 'danger');
       }
     });
   }

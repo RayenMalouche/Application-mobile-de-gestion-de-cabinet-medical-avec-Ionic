@@ -38,7 +38,7 @@ export class DetailsPatientPage implements OnInit {
     if (this.patientId) {
       this.loadPatientDetails();
     } else {
-      this.error = 'Patient ID is missing';
+      this.error = 'Identifiant du patient manquant.';
     }
 
     // Récupération de l'utilisateur connecté via AuthService
@@ -52,7 +52,7 @@ export class DetailsPatientPage implements OnInit {
 
   loadPatientDetails(): void {
     if (!this.patientId) {
-      this.error = 'Patient ID is missing';
+      this.error = 'Identifiant du patient manquant.';
       return;
     }
 
@@ -66,7 +66,7 @@ export class DetailsPatientPage implements OnInit {
       },
       error: (err) => {
         console.error('Failed to load patient details:', err);
-        this.error = 'Failed to load patient details. Please try again.';
+        this.error = 'Impossible de charger la fiche du patient. Réessayez.';
         this.isLoading = false;
       }
     });

@@ -1,132 +1,61 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start" style="color: #1358dc;">
+    <ion-buttons slot="start">
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-buttons>
-    <ion-buttons slot="end" >
-      <!-- Notification button with badge -->
-      <ion-button class="notification-button" >
-        <ion-icon name="notifications"></ion-icon>
-
-      </ion-button>
-      <ion-button class="profile-button">
-        <ion-icon name="person-circle" class="profile-icon"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-
+    <ion-title>Nouveau médecin</ion-title>
   </ion-toolbar>
 </ion-header>
 
-  <ion-content>
-    <form [formGroup]="doctorForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
-      <!-- Champ Nom -->
-      <ion-item>
-        <ion-label position="floating">Nom</ion-label>
-        <ion-input formControlName="name" type="text"></ion-input>
-      </ion-item>
+<ion-content>
+  <form class="cm-sheet doc-form" [formGroup]="doctorForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <span class="cm-kicker">Fiche médecin</span>
 
-      <!-- Champ Spécialité -->
-      <ion-item>
-        <ion-label position="floating">Spécialité</ion-label>
-        <ion-input formControlName="specialty" type="text"></ion-input>
-      </ion-item>
+    <label class="photo">
+      <img *ngIf="imagePreview; else noPhoto" [src]="imagePreview" alt="Aperçu de la photo" />
+      <ng-template #noPhoto><ion-icon name="camera-outline"></ion-icon></ng-template>
+      <span>Photo du médecin</span>
+      <input type="file" (change)="onFileChange($event)" accept="image/*" required hidden />
+    </label>
 
-      <!-- Champ Description -->
-      <ion-item>
-        <ion-label position="floating">Description</ion-label>
-        <ion-input formControlName="description" type="text"></ion-input>
-      </ion-item>
+    <ion-item><ion-input label="Nom" labelPlacement="stacked" formControlName="name" type="text"></ion-input></ion-item>
+    <ion-item><ion-input label="Spécialité" labelPlacement="stacked" formControlName="specialty" type="text"></ion-input></ion-item>
+    <ion-item><ion-input label="Description" labelPlacement="stacked" formControlName="description" type="text"></ion-input></ion-item>
+    <ion-item><ion-input label="Adresse" labelPlacement="stacked" formControlName="address" type="text"></ion-input></ion-item>
+    <div class="pair">
+      <ion-item><ion-input label="Téléphone" labelPlacement="stacked" formControlName="phone" type="tel"></ion-input></ion-item>
+      <ion-item><ion-input label="Email" labelPlacement="stacked" formControlName="email" type="email"></ion-input></ion-item>
+    </div>
+    <ion-item><ion-input label="Mot de passe" labelPlacement="stacked" formControlName="password" type="password"></ion-input></ion-item>
 
-      <!-- Champ Adresse -->
-      <ion-item>
-        <ion-label position="floating">Adresse</ion-label>
-        <ion-input formControlName="address" type="text"></ion-input>
-      </ion-item>
-
-      <!-- Champ Téléphone -->
-      <ion-item>
-        <ion-label position="floating">Téléphone</ion-label>
-        <ion-input formControlName="phone" type="tel"></ion-input>
-      </ion-item>
-
-      <!-- Champ Email -->
-      <ion-item>
-        <ion-label position="floating">Email</ion-label>
-        <ion-input formControlName="email" type="email"></ion-input>
-      </ion-item>
-
-      <!-- Champ Mot de passe -->
-      <ion-item>
-        <ion-label position="floating">Mot de passe</ion-label>
-        <ion-input formControlName="password" type="password"></ion-input>
-      </ion-item>
-
-      <!-- Champ Image -->
-      <ion-item>
-        <ion-label position="floating">Photo</ion-label>
-        <input type="file" (change)="onFileChange($event)" accept="image/*" required />
-      </ion-item>
-
-      <!-- Aperçu de l'image sélectionnée -->
-      <div *ngIf="imagePreview" class="image-preview">
-        <img [src]="imagePreview" alt="Aperçu de l'image" />
+    <div formArrayName="availability" class="hours">
+      <span class="cm-kicker">Horaires de consultation</span>
+      <div *ngFor="let availability of availabilityControls.controls; let i = index" [formGroupName]="i" class="hours__row">
+        <ion-item class="hours__day">
+          <ion-select label="Jour" labelPlacement="stacked" formControlName="day" interface="action-sheet">
+            <ion-select-option value="Lundi">Lundi</ion-select-option>
+            <ion-select-option value="Mardi">Mardi</ion-select-option>
+            <ion-select-option value="Mercredi">Mercredi</ion-select-option>
+            <ion-select-option value="Jeudi">Jeudi</ion-select-option>
+            <ion-select-option value="Vendredi">Vendredi</ion-select-option>
+            <ion-select-option value="Samedi">Samedi</ion-select-option>
+            <ion-select-option value="Dimanche">Dimanche</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item class="hours__times">
+          <ion-input label="Heures" labelPlacement="stacked" formControlName="hours" type="text" placeholder="09:00,14:00"></ion-input>
+        </ion-item>
+        <ion-button fill="clear" color="danger" (click)="removeAvailability(i)" aria-label="Supprimer ce créneau">
+          <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+        </ion-button>
       </div>
-  <!-- Disponibilités -->
-
-  <div formArrayName="availability">
-    <div class="availability-header">
-      <h4>Disponibilités du médecin</h4>
-    </div>
-
-    <div *ngFor="let availability of availabilityControls.controls; let i = index" [formGroupName]="i" class="availability-item">
-      <ion-row>
-        <ion-col size="12" size-md="5">
-          <!-- Jour -->
-          <ion-item>
-            <ion-label position="floating">Jour</ion-label>
-            <ion-select formControlName="day" interface="action-sheet">
-              <ion-select-option value="Lundi">Lundi</ion-select-option>
-              <ion-select-option value="Mardi">Mardi</ion-select-option>
-              <ion-select-option value="Mercredi">Mercredi</ion-select-option>
-              <ion-select-option value="Jeudi">Jeudi</ion-select-option>
-              <ion-select-option value="Vendredi">Vendredi</ion-select-option>
-              <ion-select-option value="Samedi">Samedi</ion-select-option>
-              <ion-select-option value="Dimanche">Dimanche</ion-select-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="9" size-md="5">
-          <!-- Heures -->
-          <ion-item>
-            <ion-label position="floating">Heures</ion-label>
-            <ion-input formControlName="hours" type="text" placeholder="Ex: 09:00,14:00"></ion-input>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="3" size-md="2" class="ion-align-self-end ion-text-end">
-          <!-- Bouton Supprimer -->
-          <ion-button color="danger" size="small" (click)="removeAvailability(i)">
-            <ion-icon name="trash-outline"></ion-icon>
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </div>
-
-    <!-- Message si aucune disponibilité -->
-    <div *ngIf="availabilityControls.length === 0" class="no-availability">
-      <p>Aucune disponibilité ajoutée</p>
-    </div>
-  </div>
-
-  <!-- Ajouter une disponibilité -->
-  <ion-button expand="full" color="secondary" (click)="addAvailability()">
-    <ion-icon name="add-circle-outline" slot="start"></ion-icon>
-    Ajouter une disponibilité
-  </ion-button>
-
-      <ion-button expand="full" type="submit" [disabled]="!doctorForm.valid">
-        Ajouter
+      <p class="none" *ngIf="availabilityControls.length === 0">Aucun horaire pour l'instant.</p>
+      <ion-button fill="outline" size="small" (click)="addAvailability()">
+        <ion-icon name="add-outline" slot="start"></ion-icon>
+        Ajouter un jour
       </ion-button>
-    </form>
-  </ion-content>
+    </div>
+
+    <ion-button expand="block" type="submit" class="go" [disabled]="!doctorForm.valid">Créer la fiche</ion-button>
+  </form>
+</ion-content>

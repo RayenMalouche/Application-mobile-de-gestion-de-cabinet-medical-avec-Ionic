@@ -1,79 +1,99 @@
-.loading-spinner {
-  display: flex;
-  justify-content: center;
-  margin: 50px auto;
+.file {
+  position: relative;
+  margin-top: 28px;
 }
 
-.profile-card {
-  margin: 16px;
-
-
+// The manila tab on top of a paper file.
+.file__tab {
+  position: absolute;
+  top: -22px;
+  left: 16px;
+  padding: 3px 12px;
+  border: 1px solid var(--cm-rule);
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  background: var(--cm-card);
+  font-family: var(--cm-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cm-teal);
 }
 
-.profile-content {
+.file__who {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
 
-  @media (min-width: 768px) {
-    flex-direction: row;
-    align-items: flex-start;
+  h1 {
+    margin: 0;
+    font-size: 1.55rem;
+  }
+
+  h2 {
+    margin: 2px 0 0;
+    font-size: 1rem;
+    color: var(--cm-muted);
   }
 }
 
-.profile-image-container {
-  width: 120px;
-  height: 120px;
-  margin-bottom: 16px;
-
-  @media (min-width: 768px) {
-    margin-right: 24px;
-    margin-bottom: 0;
-  }
-}
-
-.profile-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.file__initials,
+.file__photo {
+  flex: none;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-
+  background: var(--cm-mint);
 }
 
-.profile-details {
-  flex: 1;
+.file__initials {
+  display: grid;
+  place-items: center;
+  font-family: var(--cm-font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--cm-teal);
+  text-transform: uppercase;
 }
 
-.doctor-name {
-  font-size: 1.8rem;
-  color: #132d5e;
-  margin-bottom: 4px;
-}
-
-.doctor-specialty {
-  font-size: 1.2rem;
-  color: #666;
-  margin-bottom: 16px;
-}
-
-.tabs-section {
-  margin: 16px;
-}
-
-.component-container {
-  margin-top: 16px;
+.file__photo {
+  object-fit: cover;
 }
 
 ion-segment {
-  --background: transparent;
+  margin: 6px 0 4px;
 }
 
-ion-segment-button {
-  --color: #666;
-  --color-checked: #132d5e;
-  --indicator-color: #132d5e;
+.docs {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
 
-  ion-icon {
-    margin-right: 6px;
+.doc {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px dotted var(--cm-rule);
+
+  &:last-child {
+    border-bottom: 0;
   }
+}
+
+.doc__icon {
+  flex: none;
+  font-size: 1.5rem;
+  color: var(--cm-teal);
+}
+
+.doc__name {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  overflow-wrap: anywhere;
 }

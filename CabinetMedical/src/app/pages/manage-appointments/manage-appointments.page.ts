@@ -9,11 +9,13 @@ import { PatientService } from '../../services/patient.service';
 import { forkJoin } from 'rxjs';
 
 
+import { RdvCardComponent } from '../../shared/rdv-card.component';
+
 @Component({
   selector: 'app-manage-appointments',
   templateUrl: './manage-appointments.page.html',
   styleUrls: ['./manage-appointments.page.scss'],
-  imports: [CommonModule, IonicModule,],
+  imports: [RdvCardComponent, CommonModule, IonicModule,],
   standalone: true
 })
 export class ManageAppointmentsPage implements OnInit {
@@ -67,7 +69,7 @@ export class ManageAppointmentsPage implements OnInit {
               const patient = patientMap.get(patientId);
               return {
                 ...appt,
-                patientName: patient ? `${patient.first_name} ${patient.last_name}` : 'Unknown'
+                patientName: patient ? `${patient.first_name} ${patient.last_name}` : 'Patient inconnu'
               };
             });
 
@@ -98,12 +100,12 @@ export class ManageAppointmentsPage implements OnInit {
     }
 
     const alert = await this.alertController.create({
-      header: 'Confirm',
-      message: 'Accept this appointment?',
+      header: 'Confirmer',
+      message: 'Confirmer ce rendez-vous ?',
       buttons: [
-        { text: 'Cancel', role: 'cancel' },
+        { text: 'Annuler', role: 'cancel' },
         {
-          text: 'OK',
+          text: 'Oui',
           handler: () => {
             this.appointmentService.acceptAppointment(appointmentId).subscribe({
               next: () => {
@@ -131,12 +133,12 @@ export class ManageAppointmentsPage implements OnInit {
     }
 
     const alert = await this.alertController.create({
-      header: 'Confirm',
-      message: 'Reject this appointment?',
+      header: 'Confirmer',
+      message: 'Refuser ce rendez-vous ?',
       buttons: [
-        { text: 'Cancel', role: 'cancel' },
+        { text: 'Annuler', role: 'cancel' },
         {
-          text: 'OK',
+          text: 'Oui',
           handler: () => {
             this.appointmentService.rejectAppointment(appointmentId).subscribe({
               next: () => {

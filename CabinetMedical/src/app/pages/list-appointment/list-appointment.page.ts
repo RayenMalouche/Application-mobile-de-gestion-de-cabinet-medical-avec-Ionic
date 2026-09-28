@@ -4,14 +4,17 @@ import { IonicModule } from "@ionic/angular";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
 import { Router } from "@angular/router";
 
+import { RdvCardComponent } from '../../shared/rdv-card.component';
+
 @Component({
   selector: 'app-list-appointment',
   templateUrl: './list-appointment.page.html',
   styleUrls: ['./list-appointment.page.scss'],
   standalone: true,
-  imports: [
+  imports: [RdvCardComponent, 
     IonicModule,
     NgForOf,
+    NgIf,
     NgClass
   ]
 })

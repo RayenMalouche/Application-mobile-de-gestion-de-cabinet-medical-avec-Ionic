@@ -1,30 +1,23 @@
-<div class="calendar">
-  <div class="calendar-header">
-    <button (click)="prevMonth()">&#8249;</button>
-    <span>{{ monthNames[currentMonth] }} {{ currentYear }}</span>
-    <button (click)="nextMonth()">&#8250;</button>
+<section class="cm-sheet cal">
+  <div class="cal__head">
+    <ion-button fill="clear" size="small" (click)="prevMonth()" aria-label="Mois précédent"><ion-icon name="chevron-back-outline" slot="icon-only"></ion-icon></ion-button>
+    <h2>{{ monthNames[currentMonth] }} {{ currentYear }}</h2>
+    <ion-button fill="clear" size="small" (click)="nextMonth()" aria-label="Mois suivant"><ion-icon name="chevron-forward-outline" slot="icon-only"></ion-icon></ion-button>
   </div>
-  <div class="calendar-body">
-    <div class="calendar-weekdays">
-      <div *ngFor="let day of weekDays">{{ day }}</div>
-    </div>
-    <div class="calendar-days">
-      <div *ngFor="let day of daysInMonth" [class.today]="isToday(day)" [class.empty]="day === 0">
-        <span *ngIf="day !== 0">{{ day }}</span>
-        <div class="availability" *ngFor="let event of getEventsForDay(day)">
-          {{ event.title }}
-          <button *ngIf="day !== 0" (click)="bookAppointment(day, event)">Book</button>
-        </div>
-      </div>
+  <div class="cal__grid">
+    <span class="cal__wd" *ngFor="let day of weekDays">{{ day }}</span>
+    <div *ngFor="let day of daysInMonth" class="cal__day" [class.is-today]="isToday(day)" [class.is-empty]="day === 0">
+      <span *ngIf="day !== 0">{{ day }}</span>
+      <button type="button" class="cal__slot" *ngFor="let event of getEventsForDay(day)" (click)="bookAppointment(day, event)">{{ event.title }}</button>
     </div>
   </div>
-</div>
+</section>
 
 <ion-modal>
-  <div class="modal-content">
-    <h2>Confirm Booking</h2>
-    <p>Are you sure you want to book an appointment on {{ selectedDate | date: 'fullDate' }}?</p>
-    <button (click)="confirmBooking()">Confirm</button>
-    <button (click)="closeModal()">Cancel</button>
+  <div class="cm-sheet">
+    <h2>Confirmer le rendez-vous</h2>
+    <p>Prendre rendez-vous le {{ selectedDate | date: 'fullDate' }} ?</p>
+    <ion-button (click)="confirmBooking()">Confirmer</ion-button>
+    <ion-button fill="clear" (click)="closeModal()">Annuler</ion-button>
   </div>
 </ion-modal>

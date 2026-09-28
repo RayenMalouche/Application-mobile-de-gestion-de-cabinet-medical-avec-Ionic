@@ -1,12 +1,10 @@
-
-<ion-content >
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Doctor Grid</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div class="grid-container">
-    <app-doctor-card *ngFor="let doctor of doctors" [doctor]="doctor"></app-doctor-card>
+<div class="grid" *ngIf="doctors.length; else none">
+  <app-doctor-card *ngFor="let doctor of doctors" [doctor]="doctor"></app-doctor-card>
+</div>
+<ng-template #none>
+  <div class="cm-empty">
+    <ion-icon name="search-outline"></ion-icon>
+    <h3>Aucun médecin trouvé</h3>
+    <p>Essayez une autre spécialité ou un autre gouvernorat.</p>
   </div>
-</ion-content>
+</ng-template>

@@ -1,24 +1,17 @@
-<ion-list>
-  <ion-item *ngFor="let appointment of appointments" class="appointment-item">
-    <ion-icon name="calendar-outline" slot="start" class="icon-calendar"></ion-icon>
-    <ion-label (click)="viewAppointmentDetails(appointment)">
-      <h2 class="appointment-date">Date : {{ appointment.date }}</h2>
-      <p class="appointment-time">Heure : {{ appointment.time }}</p>
-      <p class="appointment-status"
-         [ngClass]="{
-          'status-approved': appointment.status === 'accepted',
-          'status-pending': appointment.status === 'pending',
-          'status-refused': appointment.status === 'refused'
-         }">
-        <ion-icon
-          [name]="appointment.status === 'approved' ? 'checkmark-circle-outline' : appointment.status === 'pending' ? 'time-outline' : 'close-circle-outline'"
-          class="status-icon"
-        ></ion-icon>
-        Statut : {{ appointment.status }}
-      </p>
-    </ion-label>
-    <ion-button fill="clear" slot="end" (click)="viewAppointmentDetails(appointment)" class="details-button">
-      <ion-icon name="eye-outline" color="primary" size="large"></ion-icon>
-    </ion-button>
-  </ion-item>
-</ion-list>
+<div class="cm-empty" *ngIf="appointments.length === 0">
+  <ion-icon name="calendar-outline"></ion-icon>
+  <h3>Aucun rendez-vous</h3>
+  <p>Choisissez un médecin sur l'accueil pour prendre rendez-vous.</p>
+</div>
+
+<app-rdv-card
+  *ngFor="let appointment of appointments"
+  [date]="appointment.date"
+  [time]="appointment.time"
+  [title]="appointment.reason || 'Consultation'"
+  [status]="appointment.status">
+  <ion-button fill="clear" size="small" (click)="viewAppointmentDetails(appointment)">
+    <ion-icon name="document-text-outline" slot="start"></ion-icon>
+    Voir le détail
+  </ion-button>
+</app-rdv-card>

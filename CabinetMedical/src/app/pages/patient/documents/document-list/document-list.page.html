@@ -1,13 +1,13 @@
-<ion-content>
-  <ion-list>
-    <ion-item *ngFor="let document of documents" >
-      <ion-label>{{ document.filename }}</ion-label>
-      <ion-button>
-        <ion-icon name="eye-outline" [style.color]="document.status === 'not viewed' ? 'red' : 'green'"></ion-icon>
-      </ion-button>
-      <ion-button (click)="deleteDocument(document.id)">
-        <ion-icon name="trash-outline"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-list>
-</ion-content>
+<section class="cm-sheet" *ngIf="documents?.length">
+  <span class="cm-kicker">Dans le dossier</span>
+  <div class="doc" *ngFor="let document of documents">
+    <ion-icon name="document-text-outline" class="doc__icon"></ion-icon>
+    <span class="doc__name">{{ document.filename }}</span>
+    <span class="cm-stamp" [class.is-wait]="document.status === 'not viewed'" [class.is-ok]="document.status !== 'not viewed'">
+      {{ document.status === 'not viewed' ? 'Non lu' : 'Lu' }}
+    </span>
+    <ion-button fill="clear" color="danger" size="small" (click)="deleteDocument(document.id)" aria-label="Supprimer">
+      <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </div>
+</section>

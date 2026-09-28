@@ -1,12 +1,7 @@
 /*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
+ * App Global CSS — Ionic's required CSS, then the practice's paper goods:
+ * sheets, the letterhead, rubber stamps and perforations. Page styles only
+ * hold what is unique to the page (each is capped at 4 KB by angular.json).
  */
 
 /* Core CSS required for Ionic components to work properly */
@@ -18,29 +13,334 @@
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
 
-/* Optional CSS utils that can be commented out */
+/* Optional CSS utils */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
+/* Dark mode: the palette lives in theme/variables.scss under body.dark
+   (set by ThemeService from the system setting or the Settings toggle). */
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
-body.dark {
-  --ion-background-color: #121417;
-  --ion-text-color: #ffffff;
+/* ------------------------------------------------------------- base type */
+
+body {
+  font-family: var(--cm-font-body);
+  color: var(--cm-ink);
 }
 
-body.dark ion-toolbar {
-  --background:#121417 ;
-  --color: #ffffff;
+h1,
+h2,
+h3 {
+  font-family: var(--cm-font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--cm-ink);
+}
+
+/* --------------------------------------------------------- Ionic pieces */
+
+ion-toolbar {
+  --border-width: 0 0 1px 0;
+  --min-height: 56px;
+}
+
+ion-title {
+  font-family: var(--cm-font-display);
+  font-weight: 600;
+}
+
+ion-card {
+  margin: 12px 16px;
+  border: 1px solid var(--cm-rule);
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+ion-card-title {
+  font-family: var(--cm-font-display);
+  font-weight: 600;
+  color: var(--cm-ink);
+}
+
+ion-card-subtitle {
+  font-family: var(--cm-font-mono);
+  letter-spacing: 0.06em;
+  color: var(--cm-muted);
+}
+
+ion-button {
+  --border-radius: 10px;
+  --box-shadow: none;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+ion-chip {
+  --background: var(--cm-card);
+  --color: var(--cm-ink);
+  border: 1px solid var(--cm-rule);
+  font-weight: 700;
+}
+
+/* The class outranks Ionic's scoped .searchbar-md defaults (shadow, square). */
+ion-searchbar.cm-search {
+  --background: var(--cm-card);
+  --border-radius: 999px;
+  --box-shadow: none;
+  --icon-color: var(--cm-muted);
+
+  .searchbar-input {
+    border: 1px solid var(--cm-rule);
+  }
+}
+
+ion-segment {
+  --background: var(--cm-card);
+  border: 1px solid var(--cm-rule);
+  border-radius: 10px;
+}
+
+ion-segment-button {
+  --indicator-color: var(--cm-teal);
+  --color-checked: var(--cm-teal);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 700;
+}
+
+ion-item {
+  --border-color: var(--cm-rule);
+}
+
+ion-badge {
+  font-family: var(--cm-font-mono);
+  font-weight: 600;
+}
+
+ion-tab-button {
+  font-weight: 700;
+
+  .material-icons {
+    font-size: 22px;
+  }
+}
+
+ion-menu ion-content {
+  --background: var(--cm-card);
+}
+
+/* ------------------------------------------------------ paper goods */
+
+// Page head: a small mono kicker over a serif title.
+.cm-head {
+  padding: 20px 16px 8px;
+
+  h1 {
+    margin: 4px 0 0;
+    font-size: 1.9rem;
+    line-height: 1.1;
+  }
+
+  p {
+    margin: 6px 0 0;
+    color: var(--cm-muted);
+  }
+}
+
+.cm-kicker {
+  display: block;
+  font-family: var(--cm-font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cm-muted);
+}
+
+// A sheet of the practice's paper.
+.cm-sheet {
+  margin: 12px 16px;
+  padding: 16px;
+  border: 1px solid var(--cm-rule);
+  border-radius: 12px;
+  background: var(--cm-card);
+}
+
+// Label ........ value rows, as on a form filled in at reception.
+.cm-fields {
+  margin: 0;
+
+  > div {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px dotted var(--cm-rule);
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  dt {
+    flex: none;
+    font-family: var(--cm-font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cm-muted);
+  }
+
+  dd {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    text-align: right;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+  }
+}
+
+// Rubber stamps for status. Solid tint, double border, slightly skewed.
+.cm-stamp {
+  display: inline-block;
+  padding: 3px 10px;
+  border: 3px double currentColor;
+  border-radius: 6px;
+  font-family: var(--cm-font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transform: rotate(-4deg);
+  white-space: nowrap;
+
+  &.is-ok {
+    color: var(--cm-teal);
+  }
+
+  &.is-wait {
+    color: var(--cm-iodine);
+  }
+
+  &.is-no {
+    color: var(--cm-stamp);
+  }
+}
+
+// A tear-off line: dashes with notches at both ends.
+.cm-perf {
+  position: relative;
+  height: 0;
+  margin: 12px -16px;
+  border-top: 2px dashed var(--cm-rule);
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: -9px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--cm-paper);
+  }
+
+  &::before {
+    left: -8px;
+  }
+
+  &::after {
+    right: -8px;
+  }
+}
+
+.cm-empty {
+  margin: 16px;
+  padding: 28px 16px;
+  border: 2px dashed var(--cm-rule);
+  border-radius: 12px;
+  color: var(--cm-muted);
+  text-align: center;
+
+  ion-icon {
+    font-size: 2rem;
+    color: var(--cm-rule);
+  }
+
+  h3 {
+    margin: 8px 0 4px;
+    font-size: 1.15rem;
+  }
+}
+
+.cm-error {
+  display: block;
+  margin: 4px 0 0 4px;
+  font-size: 0.85rem;
+  color: var(--cm-stamp);
+}
+
+// The letterhead of the practice's prescription pad (login, sign-up).
+.cm-letterhead {
+  padding: 28px 20px 18px;
+  border-bottom: 3px double var(--cm-ink);
+  background: var(--cm-card);
+
+  .cm-letterhead__mark {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 12px;
+    border-radius: 50%;
+    background: var(--cm-teal);
+    color: #fff;
+    font-size: 24px;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+
+  p {
+    margin: 4px 0 0;
+    font-family: var(--cm-font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--cm-muted);
+  }
+}
+
+.cm-form {
+  padding: 8px 20px 24px;
+
+  ion-item {
+    --background: var(--cm-card);
+    --border-radius: 10px;
+    --inner-border-width: 0;
+    margin-top: 14px;
+    border: 1px solid var(--cm-rule);
+    border-radius: 10px;
+  }
+}
+
+.cm-center {
+  display: flex;
+  justify-content: center;
+  padding: 32px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

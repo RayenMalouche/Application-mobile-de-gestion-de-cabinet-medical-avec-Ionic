@@ -1,35 +1,34 @@
-<ion-content class="ion-padding">
-  <ion-list *ngIf="advertisements && advertisements.length > 0; else noAds">
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin-profile" text="Retour"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Annonces</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="advertisements && advertisements.length > 0; else noAds" lines="full" class="ads">
     <ion-item *ngFor="let ad of advertisements">
       <ion-avatar slot="start">
-        <img [src]="'http://localhost:5000/' + (ad.image || 'default.jpg')">
+        <img [src]="'http://localhost:5000/' + (ad.image || 'default.jpg')" alt="" />
       </ion-avatar>
       <ion-label>
-        <h3>{{ ad.titre || 'No title' }}</h3>
-        <p>Ends: {{ ad.dateFin | date:'mediumDate' }}</p>
-        <p>Status:
-          <ion-badge [color]="ad.active ? 'success' : 'warning'">
-            {{ ad.active ? 'Active' : 'Inactive' }}
-          </ion-badge>
-        </p>
+        <h3>{{ ad.titre || 'Sans titre' }}</h3>
+        <p>Jusqu'au {{ ad.dateFin | date: 'd MMM y' }}</p>
       </ion-label>
-      <ion-button
-        slot="end"
-        fill="clear"
-        (click)="toggleAdStatus(ad)">
-        <ion-icon
-          [name]="ad.active ? 'power-sharp' : 'power-outline'"
-          [color]="ad.active ? 'danger' : 'success'">
-        </ion-icon>
+      <ion-badge slot="end" [color]="ad.active ? 'success' : 'warning'">{{ ad.active ? 'Active' : 'Inactive' }}</ion-badge>
+      <ion-button slot="end" fill="clear" (click)="toggleAdStatus(ad)" [attr.aria-label]="ad.active ? 'Désactiver' : 'Activer'">
+        <ion-icon [name]="ad.active ? 'pause-circle-outline' : 'play-circle-outline'" [color]="ad.active ? 'danger' : 'success'"></ion-icon>
       </ion-button>
     </ion-item>
   </ion-list>
 
   <ng-template #noAds>
-    <ion-item>
-      <ion-label class="ion-text-center">
-        No advertisements found
-      </ion-label>
-    </ion-item>
+    <ion-list lines="none">
+      <ion-item>
+        <ion-label class="ion-text-center">Aucune annonce.</ion-label>
+      </ion-item>
+    </ion-list>
   </ng-template>
 </ion-content>

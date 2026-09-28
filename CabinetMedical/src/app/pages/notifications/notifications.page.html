@@ -1,39 +1,37 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
+      <ion-back-button defaultHref="/home" text="Retour"></ion-back-button>
     </ion-buttons>
     <ion-title>Notifications</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list *ngIf="isLoading">
+  <ion-list *ngIf="isLoading" lines="none">
     <ion-item *ngFor="let i of [1, 2, 3]">
       <ion-label>
-        <div class="loading-placeholder" style="height: 20px; width: 60%; margin-bottom: 8px;"></div>
-        <div class="loading-placeholder" style="height: 15px; width: 80%;"></div>
+        <ion-skeleton-text [animated]="true" style="width: 60%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 85%"></ion-skeleton-text>
       </ion-label>
-    </ion-item>
-  </ion-list>
-  <ion-list *ngIf="!isLoading && notifications.length > 0">
-    <ion-item
-      *ngFor="let notification of notifications"
-      (click)="goToNotificationDetails(notification)"
-      [class.read]="notification.is_read"
-      button
-      detail
-    >
-      <ion-label>
-        <h2>{{ notification.title }}</h2>
-        <p>{{ notification.body }}</p>
-        <p class="timestamp">{{ notification.timestamp | date: 'short' }}</p>
-      </ion-label>
-      <ion-badge *ngIf="!notification.is_read" color="danger" slot="end">New</ion-badge>
     </ion-item>
   </ion-list>
 
-  <ion-item *ngIf="!isLoading && notifications.length === 0">
-    <ion-label>No notifications available</ion-label>
-  </ion-item>
+  <section class="cm-sheet notes" *ngIf="!isLoading && notifications.length > 0">
+    <button type="button" class="note" *ngFor="let notification of notifications" [class.is-new]="!notification.is_read" (click)="goToNotificationDetails(notification)">
+      <span class="note__dot" aria-hidden="true"></span>
+      <span class="note__text">
+        <strong>{{ notification.title }}</strong>
+        <span>{{ notification.body }}</span>
+        <time>{{ notification.timestamp | date: 'd MMM, HH:mm' }}</time>
+      </span>
+      <span class="cm-stamp is-no" *ngIf="!notification.is_read">Nouveau</span>
+    </button>
+  </section>
+
+  <div class="cm-empty" *ngIf="!isLoading && notifications.length === 0">
+    <ion-icon name="notifications-off-outline"></ion-icon>
+    <h3>Rien de nouveau</h3>
+    <p>Vous serez prévenu ici quand un rendez-vous change.</p>
+  </div>
 </ion-content>

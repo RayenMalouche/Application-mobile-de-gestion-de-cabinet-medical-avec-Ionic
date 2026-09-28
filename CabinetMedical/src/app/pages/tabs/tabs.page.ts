@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router , RouterLink} from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -8,7 +8,8 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './tabs.page.html',
   styleUrls: ['./tabs.page.scss'],
   imports: [
-    IonicModule
+    IonicModule,
+    RouterLink
   ],
   standalone: true
 })

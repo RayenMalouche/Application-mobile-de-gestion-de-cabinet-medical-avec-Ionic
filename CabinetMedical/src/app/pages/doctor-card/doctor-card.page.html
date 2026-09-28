@@ -1,26 +1,17 @@
-<ion-card class="doctor-card" (click)="viewDoctorDetails()">
-  <div class="card-top">
-    <img [src]="'http://localhost:5000/uploads/' + doctor.image" alt="Photo du docteur"/>
+<article class="plate" (click)="viewDoctorDetails()" tabindex="0" (keydown.enter)="viewDoctorDetails()">
+  <img class="plate__photo" [src]="'http://localhost:5000/uploads/' + doctor.image" [alt]="'Photo du Dr ' + doctor.name" />
+  <div class="plate__body">
+    <span class="cm-kicker">{{ doctor.specialty }}</span>
+    <h3 class="plate__name">{{ doctor.name }}</h3>
+    <p class="plate__addr"><ion-icon name="location-outline"></ion-icon> {{ doctor.address }}</p>
   </div>
-
-  <ion-card-content class="card-content">
-    <div class="doctor-meta">
-      <h3 class="doctor-name">{{ doctor.name }}</h3>
-      <p class="doctor-specialty">{{ doctor.specialty }}</p>
-      
-      <div class="location">
-        <ion-icon name="location-outline"></ion-icon>
-        <span>{{ doctor.address}}</span>
-      </div>
-    </div>
-
-    <div class="action-buttons">
-      <ion-button fill="clear" color="primary" (click)="$event.stopPropagation(); bookAppointment()">
-        <ion-icon slot="icon-only" name="calendar-outline"></ion-icon>
-      </ion-button>
-      <ion-button fill="clear" color="secondary" (click)="$event.stopPropagation(); callDoctor()">
-        <ion-icon slot="icon-only" name="call-outline"></ion-icon>
-      </ion-button>
-    </div>
-  </ion-card-content>
-</ion-card>
+  <div class="plate__actions">
+    <ion-button size="small" (click)="$event.stopPropagation(); bookAppointment()">
+      <ion-icon name="calendar-outline" slot="start"></ion-icon>
+      Rendez-vous
+    </ion-button>
+    <ion-button size="small" fill="outline" (click)="$event.stopPropagation(); callDoctor()" aria-label="Appeler">
+      <ion-icon name="call-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </div>
+</article>

@@ -1,22 +1,29 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Mes conversations</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="Retour"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Messagerie</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list *ngIf="conversations.length > 0; else noMessages">
-    <ion-item button *ngFor="let convo of conversations" (click)="openConversation(convo.otherUserId)">
-      <ion-label>
-        <h2>{{ convo.otherUserName }}</h2>
-        <p>{{ convo.lastMessage.content }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <section class="cm-sheet inbox" *ngIf="conversations.length > 0; else noMessages">
+    <button type="button" class="thread" *ngFor="let convo of conversations" (click)="openConversation(convo.otherUserId)">
+      <span class="thread__avatar" aria-hidden="true">{{ (convo.otherUserName || '?')[0] }}</span>
+      <span class="thread__text">
+        <strong>{{ convo.otherUserName }}</strong>
+        <span>{{ convo.lastMessage?.content }}</span>
+      </span>
+      <ion-icon name="chevron-forward-outline" aria-hidden="true"></ion-icon>
+    </button>
+  </section>
 
   <ng-template #noMessages>
-    <div class="ion-padding">
-      <p>Aucune conversation trouvée.</p>
+    <div class="cm-empty">
+      <ion-icon name="mail-open-outline"></ion-icon>
+      <h3>Aucune conversation</h3>
+      <p>Écrivez à un médecin depuis sa fiche.</p>
     </div>
   </ng-template>
 </ion-content>

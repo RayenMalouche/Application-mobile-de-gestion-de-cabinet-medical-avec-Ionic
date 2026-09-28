@@ -6,11 +6,13 @@ import { IonicModule } from "@ionic/angular";
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
+import { DossierFolderComponent } from '../../../../shared/dossier-folder.component';
+
 @Component({
   selector: 'app-document-management',
   templateUrl: './document-management.page.html',
   standalone: true,
-  imports: [
+  imports: [DossierFolderComponent, 
     DocumentUploadPage,
     DocumentListPage,
     IonicModule,

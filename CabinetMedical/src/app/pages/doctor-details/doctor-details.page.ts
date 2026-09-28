@@ -21,7 +21,6 @@ import { FormsModule } from '@angular/forms';
     IonicModule,
     NgIf,
     NgForOf,
-    NgStyle,
     FormsModule,
   ]
 })
@@ -130,7 +129,7 @@ export class DoctorDetailsPage implements OnInit {
     if (this.isAvailable(day)) {
       this.availableTimes = this.getHours(day);
       const alert = await this.alertController.create({
-        header: 'Select Time',
+        header: 'Choisir une heure',
         inputs: this.availableTimes.map(time => ({
           type: 'radio',
           label: time,
@@ -138,14 +137,14 @@ export class DoctorDetailsPage implements OnInit {
         })),
         buttons: [
           {
-            text: 'Cancel',
+            text: 'Annuler',
             role: 'cancel',
             handler: () => {
               console.log('Confirm Cancel');
             }
           },
           {
-            text: 'OK',
+            text: 'Valider',
             handler: (selectedTime) => {
               this.selectedTime = selectedTime;
               this.bookAppointment();
